@@ -1,13 +1,13 @@
 package main_program;
 
+import java.io.IOException;
+
 public class Main {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public static void main(String[] args) throws IOException {
+		File file = new File(args[0]);
+		boolean fileSuccess = file.processFile();
 	}
-
+	
+	
 }
