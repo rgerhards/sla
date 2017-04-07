@@ -81,6 +81,9 @@ public class NumeriusTest {
 		
 		Parser.setLine("ABC 146 DEF");
 		assertEquals("line: ABC 146 DEF, offset: 5", 7, tester.parseInt(5));
+		
+		Parser.setLine("ABC 146 DEF");
+		assertEquals("line: ABC 146 DEF, offset: 0", 0, tester.parseInt(0));
 	}
 
 }
