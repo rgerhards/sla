@@ -16,18 +16,23 @@ public class File {
 	private FileReader fr;
 	private BufferedReader br;
 	
+	private Numerius numerius;
+	private Test_Parser_A testParser;
+	private Part_Constant partConstant;
 
 	public File(String pFilename) throws FileNotFoundException {
 		this.filename = pFilename;
 		this.fr = new FileReader(filename);
 		this.br = new BufferedReader(fr);
+		
+		numerius = new Numerius();
+		testParser = new Test_Parser_A();
+		partConstant = new Part_Constant();
 	}
 	
 	public boolean processFile() throws IOException {
 		System.out.println("Now processing: " + filename);
 		String line;
-		int offSet;
-		int len;
 		
 		while((line = br.readLine()) != null) {
 			parseLine(line);
@@ -46,33 +51,35 @@ public class File {
 		int newOffSet = 0;
 		String constant = "";
 		
+		
 		while(offSet < len) {
-			if((newOffSet = Numerius.parseInt(offSet)) != 0) {
+			if((newOffSet = numerius.parse(offSet)) != 0) {
 				offSet = newOffSet;
-				constant = Numerius.getConst();
+				constant = numerius.getConst();
 				if(!constant.equals("")) {
 					System.out.print(constant);
-					Numerius.emptyConst();
+					numerius.emptyConst();
 				}
 				System.out.print("<Integer>");
-			} else if((newOffSet = Test_Parser_A.parseA(offSet)) != 0) {
+			} else if((newOffSet = testParser.parse(offSet)) != 0) {
 				offSet = newOffSet;
-				constant = Test_Parser_A.getConst();
+				constant = testParser.getConst();
 				if(!constant.equals("")) {
 					System.out.print(constant);
-					Test_Parser_A.emptyConst();
+					testParser.emptyConst();
 				}
 				System.out.print("<A>");
 			} else {
-				offSet = Part_Constant.parseConst(offSet);
+				offSet = partConstant.parse(offSet);
 			}
 		}
-		constant = Numerius.getConst();
+		constant = numerius.getConst();
 		if(!constant.equals("")) {
 			System.out.println(constant);
-			Numerius.emptyConst();
+			numerius.emptyConst();
 		}
 		
 	}
+	
 	
 }

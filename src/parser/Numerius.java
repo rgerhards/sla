@@ -5,7 +5,7 @@ import java.security.InvalidParameterException;
 public class Numerius extends Parser {
 	
 	
-	public static int parseInt(int pOffSet) {
+	public @Override int parse(int pOffSet) {
 		String line = getLine();
 		int len = line.length();
 		boolean hasDigit = false;

@@ -9,19 +9,21 @@ public abstract class Parser {
 		toParse = line;
 	}
 	
-	public static String getLine() {
+	public String getLine() {
 		return toParse;
 	}
 	
-	public static void addToConst(char c) {
+	public void addToConst(char c) {
 		constant += c;
 	}
 	
-	public static String getConst() {
+	public String getConst() {
 		return constant;
 	}
 	
-	public static void emptyConst() {
+	public void emptyConst() {
 		constant = "";
 	}
+	
+	public abstract int parse(int pOffSet);
 }

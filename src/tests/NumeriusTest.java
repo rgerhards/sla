@@ -16,40 +16,40 @@ public class NumeriusTest {
 		Numerius tester = new Numerius();
 		
 		Parser.setLine("1");
-		assertEquals("line: 1", 1, tester.parseInt(0));
+		assertEquals("line: 1", 1, tester.parse(0));
 		
 		Parser.setLine("210");
-		assertEquals("line: 210", 3, tester.parseInt(0));
+		assertEquals("line: 210", 3, tester.parse(0));
 		
 		Parser.setLine("-2");
-		assertEquals("line: -2", 2, tester.parseInt(0));
+		assertEquals("line: -2", 2, tester.parse(0));
 		
 		Parser.setLine("a");
-		assertEquals("line: a", 0, tester.parseInt(0));
+		assertEquals("line: a", 0, tester.parse(0));
 		
 		Parser.setLine("abd");
-		assertEquals("line: abd", 0, tester.parseInt(0));
+		assertEquals("line: abd", 0, tester.parse(0));
 		
 		Parser.setLine("a5");
-		assertEquals("line: a5", 0, tester.parseInt(0));
+		assertEquals("line: a5", 0, tester.parse(0));
 		
 		Parser.setLine("56ab");
-		assertEquals("line: 56ab", 2, tester.parseInt(0));
+		assertEquals("line: 56ab", 2, tester.parse(0));
 		
 		Parser.setLine("1-");
-		assertEquals("line: 1-", 1, tester.parseInt(0));
+		assertEquals("line: 1-", 1, tester.parse(0));
 		
 		Parser.setLine("-5a");
-		assertEquals("line: -5a", 2, tester.parseInt(0));
+		assertEquals("line: -5a", 2, tester.parse(0));
 		
 		Parser.setLine("5-a");
-		assertEquals("line: 5-a", 1, tester.parseInt(0));
+		assertEquals("line: 5-a", 1, tester.parse(0));
 		
 		Parser.setLine("!?");
-		assertEquals("line: !?", 0, tester.parseInt(0));
+		assertEquals("line: !?", 0, tester.parse(0));
 		
 		Parser.setLine("67!?");
-		assertEquals("line: 67!?", 2, tester.parseInt(0));
+		assertEquals("line: 67!?", 2, tester.parse(0));
 		
 	}
 	
@@ -58,7 +58,7 @@ public class NumeriusTest {
 		Numerius tester = new Numerius();
 		
 		Parser.setLine("390");
-		tester.parseInt(-1);
+		tester.parse(-1);
 	}
 	
 	@Test (expected = InvalidParameterException.class)
@@ -66,7 +66,7 @@ public class NumeriusTest {
 		Numerius tester = new Numerius();
 		
 		Parser.setLine("390");
-		tester.parseInt(3);
+		tester.parse(3);
 	}
 	
 	@Test
@@ -74,16 +74,16 @@ public class NumeriusTest {
 		Numerius tester = new Numerius();
 		
 		Parser.setLine("ABC 146 DEF");
-		assertEquals("line: ABC 146 DEF, offset: 4", 7, tester.parseInt(4));
+		assertEquals("line: ABC 146 DEF, offset: 4", 7, tester.parse(4));
 		
 		Parser.setLine("ABC 146 DEF");
-		assertEquals("line: ABC 146 DEF, offset: 2", 0, tester.parseInt(2));
+		assertEquals("line: ABC 146 DEF, offset: 2", 0, tester.parse(2));
 		
 		Parser.setLine("ABC 146 DEF");
-		assertEquals("line: ABC 146 DEF, offset: 5", 7, tester.parseInt(5));
+		assertEquals("line: ABC 146 DEF, offset: 5", 7, tester.parse(5));
 		
 		Parser.setLine("ABC 146 DEF");
-		assertEquals("line: ABC 146 DEF, offset: 0", 0, tester.parseInt(0));
+		assertEquals("line: ABC 146 DEF, offset: 0", 0, tester.parse(0));
 	}
 
 }
