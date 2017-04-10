@@ -9,12 +9,15 @@ import parser.Numerius;
 import parser.Parser;
 import parser.Part_Constant;
 import parser.Test_Parser_A;
+import trees.Tree;
 
 public class File {
 	
 	private String filename;
 	private FileReader fr;
 	private BufferedReader br;
+	private Parser list[];
+	private Tree tree;
 	
 	private Numerius numerius;
 	private Test_Parser_A testParser;
@@ -25,19 +28,28 @@ public class File {
 		this.fr = new FileReader(filename);
 		this.br = new BufferedReader(fr);
 		
-		numerius = new Numerius();
-		testParser = new Test_Parser_A();
-		partConstant = new Part_Constant();
+	}
+	
+	public void buildParserArray() {
+		numerius = new Numerius("int");
+		testParser = new Test_Parser_A("A");
+		partConstant = new Part_Constant("const");
+		
+		list = new Parser[2];
+		list[0] = numerius;
+		list[1] = testParser;
 	}
 	
 	public boolean processFile() throws IOException {
 		System.out.println("Now processing: " + filename);
 		String line;
+		buildParserArray();
+		tree = new Tree();
 		
 		while((line = br.readLine()) != null) {
 			parseLine(line);
 		}
-		
+		tree.dotTreeOutput();
 		
 		
 		
@@ -45,40 +57,37 @@ public class File {
 	}
 	
 	public void parseLine(String pLine) {
-		int len = pLine.length();
+		
 		Parser.setLine(pLine);
+		int len = pLine.length();
 		int offSet = 0;
 		int newOffSet = 0;
-		String constant = "";
-		
+		boolean parserFound = false;
 		
 		while(offSet < len) {
-			if((newOffSet = numerius.parse(offSet)) != 0) {
-				offSet = newOffSet;
-				constant = numerius.getConst();
-				if(!constant.equals("")) {
-					System.out.print(constant);
-					numerius.emptyConst();
+			for(int i=0; i<2; i++) {
+				if((newOffSet = list[i].parse(offSet)) != 0) {
+					if(!list[i].getConst().equals("")) {
+						tree.addEdge(list[i].getConst());
+						System.out.print(list[i].getConst());
+						list[i].emptyConst();
+					}
+					tree.addEdge("<" + list[i].getType() + ">");
+					System.out.print("<" + list[i].getType() + ">");
+					parserFound = true;
+					offSet = newOffSet;
+					break;
 				}
-				System.out.print("<Integer>");
-			} else if((newOffSet = testParser.parse(offSet)) != 0) {
-				offSet = newOffSet;
-				constant = testParser.getConst();
-				if(!constant.equals("")) {
-					System.out.print(constant);
-					testParser.emptyConst();
-				}
-				System.out.print("<A>");
-			} else {
+			}
+			if(!parserFound) {
 				offSet = partConstant.parse(offSet);
 			}
+			parserFound = false;
 		}
-		constant = numerius.getConst();
-		if(!constant.equals("")) {
-			System.out.println(constant);
-			numerius.emptyConst();
-		}
-		
+		tree.addEdge(partConstant.getConst());
+		System.out.println(partConstant.getConst());
+		partConstant.emptyConst();
+		tree.nextLine();
 	}
 	
 	

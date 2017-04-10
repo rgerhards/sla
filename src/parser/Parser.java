@@ -4,6 +4,15 @@ public abstract class Parser {
 	
 	private static String toParse;
 	private static String constant = "";
+	private String type;
+	
+	public Parser(String pType) {
+		type = pType;
+	}
+	
+	public String getType() {
+		return type;
+	}
 	
 	public static void setLine(String line) {
 		toParse = line;

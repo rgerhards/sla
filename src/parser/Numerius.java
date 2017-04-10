@@ -4,6 +4,10 @@ import java.security.InvalidParameterException;
 
 public class Numerius extends Parser {
 	
+	public Numerius(String pType) {
+		super(pType);
+	}
+	
 	
 	public @Override int parse(int pOffSet) {
 		String line = getLine();

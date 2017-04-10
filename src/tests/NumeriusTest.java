@@ -13,7 +13,7 @@ public class NumeriusTest {
 
 	@Test
 	public void test() {
-		Numerius tester = new Numerius();
+		Numerius tester = new Numerius("int");
 		
 		Parser.setLine("1");
 		assertEquals("line: 1", 1, tester.parse(0));
@@ -55,7 +55,7 @@ public class NumeriusTest {
 	
 	@Test (expected = InvalidParameterException.class)
 	public void test2() {
-		Numerius tester = new Numerius();
+		Numerius tester = new Numerius("int");
 		
 		Parser.setLine("390");
 		tester.parse(-1);
@@ -63,7 +63,7 @@ public class NumeriusTest {
 	
 	@Test (expected = InvalidParameterException.class)
 	public void test3() {
-		Numerius tester = new Numerius();
+		Numerius tester = new Numerius("int");
 		
 		Parser.setLine("390");
 		tester.parse(3);
@@ -71,7 +71,7 @@ public class NumeriusTest {
 	
 	@Test
 	public void test4() {
-		Numerius tester = new Numerius();
+		Numerius tester = new Numerius("int");
 		
 		Parser.setLine("ABC 146 DEF");
 		assertEquals("line: ABC 146 DEF, offset: 4", 7, tester.parse(4));
