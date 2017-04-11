@@ -28,7 +28,6 @@ public class Node {
 		return nextNode;
 	}
 	
-	/*Zur Zeit nur für Ausgabe*/
 	public int getSizeList() {
 		return listEdges.size();
 	}
