@@ -1,5 +1,7 @@
 package main_program;
 
+import gui.TreeTable;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,17 +18,27 @@ public class File {
 	private String filename;
 	private FileReader fr;
 	private BufferedReader br;
+	private int ausgabe = 0;
 	private Parser list[];
 	private Tree tree;
+	private TreeTable treeTable;
 	
 	private Numerius numerius;
 	private Test_Parser_A testParser;
 	private Part_Constant partConstant;
 
-	public File(String pFilename) throws FileNotFoundException {
-		this.filename = pFilename;
+	public File(String[] args) throws FileNotFoundException {
+		this.filename = args[0];
 		this.fr = new FileReader(filename);
 		this.br = new BufferedReader(fr);
+		
+		if(args.length > 1) {
+			if(args[1].equals("dot")) {
+				ausgabe = 1;
+			} else if(args[1].equals("JTree")) {
+				ausgabe = 2;
+			}
+		}
 		
 	}
 	
@@ -45,11 +57,18 @@ public class File {
 		String line;
 		buildParserArray();
 		tree = new Tree();
+		treeTable = new TreeTable();
 		
 		while((line = br.readLine()) != null) {
 			parseLine(line);
 		}
-		tree.dotTreeOutput();
+		
+		if(ausgabe == 1) {
+			tree.dotTreeOutput();
+		} else if(ausgabe == 2) {
+			treeTable = new TreeTable();
+			treeTable.createTreeTable(this.tree);
+		}
 		
 		
 		

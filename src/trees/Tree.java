@@ -10,6 +10,10 @@ public class Tree {
 		current = root;
 	}
 	
+	public Node getRoot() {
+		return root;
+	}
+	
 	public void addEdge(String pVar) {
 		Node nextNode;
 		
@@ -25,7 +29,7 @@ public class Tree {
 		current = root;
 	}
 	
-	/*für Ausgabe zum Überprüfen*/
+	/*für Ausgabe der dot Datei*/
 	public void dotTreeOutput() {
 		System.out.println("digraph {");
 		runTree(root);
