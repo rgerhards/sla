@@ -18,7 +18,7 @@ public class File {
 	private String filename;
 	private FileReader fr;
 	private BufferedReader br;
-	private int ausgabe = 0;
+	private String ausgabe = null;
 	private Parser list[];
 	private Tree tree;
 	private TreeTable treeTable;
@@ -27,18 +27,12 @@ public class File {
 	private Test_Parser_A testParser;
 	private Part_Constant partConstant;
 
-	public File(String[] args) throws FileNotFoundException {
-		this.filename = args[0];
+	public File(String pFile, String pOutput) throws FileNotFoundException {
+		this.filename = pFile;
 		this.fr = new FileReader(filename);
 		this.br = new BufferedReader(fr);
 		
-		if(args.length > 1) {
-			if(args[1].equals("dot")) {
-				ausgabe = 1;
-			} else if(args[1].equals("JTree")) {
-				ausgabe = 2;
-			}
-		}
+		this.ausgabe = pOutput;
 		
 	}
 	
@@ -63,9 +57,9 @@ public class File {
 			parseLine(line);
 		}
 		
-		if(ausgabe == 1) {
+		if(ausgabe.equals("dot")) {
 			tree.dotTreeOutput();
-		} else if(ausgabe == 2) {
+		} else if(ausgabe.equals("JTree")) {
 			treeTable = new TreeTable();
 			treeTable.createTreeTable(this.tree);
 		}
