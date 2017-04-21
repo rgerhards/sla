@@ -12,9 +12,9 @@ public class File_Test {
 
 	@Test (expected = FileNotFoundException.class)
 	public void fileNotFound() throws FileNotFoundException {
-		String[] args = new String[1];
-		args[0] = "testNotFound.xtx";
-		File file = new File(args);
+		String pFile = "defe.xtx";
+		String pOutput = null;
+		File file = new File(pFile, pOutput);
 	}
 
 }
